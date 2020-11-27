@@ -1,8 +1,5 @@
 <template>
-  <div class="home-page">
-    <section class="intro">
-      <h1>Get the latest tech news</h1>
-    </section>
+  <div class="posts-page">
     <post-list></post-list>
   </div>
 </template>
@@ -22,17 +19,9 @@ export default {
   flex-direction: $fl-dir;
 }
 
-.home-page {
-  width: 100%;
-  .intro {
-    height: 200px;
-    background-image: url("~assets/images/header-bg.jpg");
-    background-position: 0% 35%;
-    @include flexCenter();
-
-    h1 {
-      border-bottom: 1px solid #000;
-    }
-  }
+.posts-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

@@ -20,25 +20,25 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  // #1 #note #th could also use 'fetch' but not merge data to this component, i.o it get from store
-  // #2 but not likely to use that ..so good goes (opt)
-  asyncData(context, callback) {
-    console.log("async data executed 2nd one");
-    setTimeout(() => {
-      callback(null, {
-        post: {
-          _id: "1",
-          title: "1st Post" + " ID" + context.route.params.id,
-          previewText: "preview text",
-          lastUpdate: new Date(),
-          author: "Narek",
-          content: "Descriptive Content",
-          thumbnail:
-            "https://i.pinimg.com/originals/33/09/ca/3309ca1330ca91b55b4feeda3f383031.jpg"
+  asyncData(context) {
+    return axios
+      .get(`https://mynuxt-app.firebaseio.com/posts/${context.params.id}.json`)
+      .then(res => {
+        if (!res.data) {
+          // #task #improve i.o this, lead to 'error' page
+          return {
+            post: { title: "That ID is not valid" }
+          };
         }
-      });
-    }, 250);
+
+        return {
+          // #note 'post' is being merged into component
+          post: { ...res.data, id: context.params.id }
+        };
+      })
+      .catch(err => console.error(err));
   }
 };
 </script>

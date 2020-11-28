@@ -1,18 +1,31 @@
 <template>
   <div class="admin-new-post-page">
     <section class="new-post-form">
-      <admin-post-form></admin-post-form>
+      <admin-post-form @submit="onSave"></admin-post-form>
     </section>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import AdminPostForm from "@/components/Admin/AdminPostForm";
 
 export default {
   components: { AdminPostForm },
 
-  layout: "admin"
+  layout: "admin",
+
+  methods: {
+    onSave(addedPost) {
+      axios
+        .post("https://mynuxt-app.firebaseio.com/posts.json", {
+          ...addedPost,
+          lastUpdated: new Date()
+        })
+        .catch(err => console.error(err));
+      this.$router.push("/");
+    }
+  }
 };
 </script>
 

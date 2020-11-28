@@ -1,12 +1,13 @@
 <template>
   <div class="admin-post-page">
     <section class="update-form">
-      <admin-post-form :post="loadedPost"></admin-post-form>
+      <admin-post-form @submit="onUpdate" :post="loadedPost"></admin-post-form>
     </section>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import AdminPostForm from "@/components/Admin/AdminPostForm";
 
 export default {
@@ -14,16 +15,10 @@ export default {
 
   layout: "admin",
 
-  data() {
-    return {
-      loadedPost: {
-        author: "Narek",
-        title: "Title",
-        thumbnailLink:
-          "https://i.pinimg.com/originals/33/09/ca/3309ca1330ca91b55b4feeda3f383031.jpg",
-        content: "Content"
-      }
-    };
+  methods: {
+    onUpdate() {
+      // axios.post("https://mynuxt-app.firebaseio.com/posts.json");
+    }
   }
 };
 </script>

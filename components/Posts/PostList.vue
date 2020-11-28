@@ -2,8 +2,8 @@
   <section class="post-list">
     <post-preview
       v-for="post in posts"
-      :key="post._id"
-      :id="post._id"
+      :key="post.id"
+      :id="post.id"
       :is-admin="isAdmin"
       :title="post.title"
       :previewText="post.previewText"

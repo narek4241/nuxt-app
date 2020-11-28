@@ -1,14 +1,18 @@
 <template>
-  <form @submit.prevent="onSave">
+  <form @submit.prevent="onSubmit">
     <app-control-input v-model="editedPost.author"
       >Author Name</app-control-input
     >
     <app-control-input v-model="editedPost.title">Title</app-control-input>
-    <app-control-input v-model="editedPost.thumbnailLink"
-      >Author Name</app-control-input
+    <app-control-input v-model="editedPost.thumbnail"
+      >Thumnail Link</app-control-input
     >
     <app-control-input v-model="editedPost.content" control-type="textarea"
       >Content</app-control-input
+    >
+
+    <app-control-input v-model="editedPost.previewText" control-type="textarea"
+      >Preview Text</app-control-input
     >
 
     <app-button type="submit">Save</app-button>
@@ -39,8 +43,9 @@ export default {
         : {
             author: "",
             title: "",
-            thumbnailLink: "",
-            content: ""
+            thumbnail: "",
+            content: "",
+            previewText: ""
           }
     };
   },
@@ -52,12 +57,13 @@ export default {
     resetForm() {
       this.editedPost.author = "";
       this.editedPost.title = "";
-      this.editedPost.thumbnailLink = "";
+      this.editedPost.thumbnail = "";
       this.editedPost.content = "";
+      this.editedPost.previewText = "";
     },
 
-    onSave() {
-      console.log({ ...this.editedPost });
+    onSubmit() {
+      this.$emit("submit", { ...this.editedPost });
       this.resetForm();
     }
   }

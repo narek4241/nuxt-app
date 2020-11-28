@@ -1,7 +1,9 @@
 <template>
   <div class="header-container">
     <header class="the-header">
-      <TheSideNavToggle @toggle="$emit('sidenav-toggle')" />
+      <the-side-nav-toggle
+        @toggle="$emit('sidenav-toggle')"
+      ></the-side-nav-toggle>
       <div class="logo">
         <nuxt-link to="/">WD BLOG</nuxt-link>
       </div>

@@ -12,16 +12,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@mixin flexCenter($fl-dir: row) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: $fl-dir;
-}
-
 .posts-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
 }
 </style>

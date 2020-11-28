@@ -1,19 +1,30 @@
 <template>
   <div class="admin-page">
     <section class="new-posts">
-      <button @click="linkToNewPost">Create Post</button>
+      <app-button @click="linkToNewPost">Create Post</app-button>
     </section>
     <section class="existing-posts">
       <h1>Existing Posts</h1>
-      <PostList />
+      <!-- <PostList :isAdmin="isAdmin" />  -->
+      <!-- #syntax isAdmin - returns true -->
+      <post-list isAdmin></post-list>
     </section>
   </div>
 </template>
 
 <script>
 import PostList from "@/components/Posts/PostList";
+import AppButton from "@/components/UI/AppButton";
 export default {
-  components: PostList,
+  components: { PostList, AppButton },
+
+  layout: "admin",
+
+  data() {
+    return {
+      isAdmin: true
+    };
+  },
 
   methods: {
     linkToNewPost() {

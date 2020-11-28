@@ -9,51 +9,6 @@ import PostList from "@/components/Posts/PostList";
 export default {
   component: PostList,
 
-  fetch(context) {
-    // #note can improve by using nuxtServerInit in store (opt)
-    if (context.store.getters.posts.length > 0) {
-      // return null;
-      return;
-    }
-
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({
-          posts: [
-            {
-              _id: "1",
-              title: "1st Post",
-              previewText: "Preview text 1",
-              thumbnail:
-                "https://i.pinimg.com/originals/33/09/ca/3309ca1330ca91b55b4feeda3f383031.jpg"
-            },
-            {
-              _id: "2",
-              title: "2nd Post",
-              previewText: "Preview text 2",
-              thumbnail:
-                "https://i.pinimg.com/originals/33/09/ca/3309ca1330ca91b55b4feeda3f383031.jpg"
-            },
-            {
-              _id: "3",
-              title: "3rd Post",
-              previewText: "Preview text 3",
-              thumbnail:
-                "https://i.pinimg.com/originals/33/09/ca/3309ca1330ca91b55b4feeda3f383031.jpg"
-            }
-          ]
-        });
-        // reject(new Error());
-      }, 1000);
-    })
-      .then(data => {
-        context.store.commit("setPosts", data.posts);
-      })
-      .catch(e => {
-        context.error(e);
-      });
-  },
-
   computed: {
     posts() {
       return this.$store.getters.posts;

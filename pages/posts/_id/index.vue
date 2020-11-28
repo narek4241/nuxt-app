@@ -21,6 +21,8 @@
 
 <script>
 export default {
+  // #1 #note #th could also use 'fetch' but not merge data to this component, i.o it get from store
+  // #2 but not likely to use that ..so good goes (opt)
   asyncData(context, callback) {
     console.log("async data executed 2nd one");
     setTimeout(() => {
@@ -36,7 +38,7 @@ export default {
             "https://i.pinimg.com/originals/33/09/ca/3309ca1330ca91b55b4feeda3f383031.jpg"
         }
       });
-    }, 100);
+    }, 250);
   }
 };
 </script>

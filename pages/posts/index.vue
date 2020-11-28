@@ -9,7 +9,13 @@ import PostList from "@/components/Posts/PostList";
 export default {
   component: PostList,
 
-  asyncData(context) {
+  fetch(context) {
+    // #note can improve by using nuxtServerInit in store (opt)
+    if (context.store.getters.posts.length > 0) {
+      // return null;
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve({
@@ -41,11 +47,17 @@ export default {
       }, 1000);
     })
       .then(data => {
-        return data;
+        context.store.commit("setPosts", data.posts);
       })
       .catch(e => {
-        context.error(new Error());
+        context.error(e);
       });
+  },
+
+  computed: {
+    posts() {
+      return this.$store.getters.posts;
+    }
   }
 };
 </script>

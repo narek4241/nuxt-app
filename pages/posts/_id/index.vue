@@ -1,21 +1,13 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1 class="post-title">Title</h1>
+      <h1 class="post-title">{{ post.title }}</h1>
       <div class="post-details">
-        <div class="post-detail">Last update: XXX</div>
-        <div class="post-detail">Author: Name</div>
+        <div class="post-detail">{{ post.lastUpdate }}</div>
+        <div class="post-detail">{{ post.author }}</div>
       </div>
       <p class="post-content">
-        Content: Lorem Ipsum is simply dummy text of the printing and
-        typesetting industry. Lorem Ipsum has been the industry's standard dummy
-        text ever since the 1500s, when an unknown printer took a galley of type
-        and scrambled it to make a type specimen book. It has survived not only
-        five centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
+        {{ post.content }}
       </p>
     </section>
     <section class="post-feedback">
@@ -26,6 +18,28 @@
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  asyncData(context, callback) {
+    console.log("async data executed 2nd one");
+    setTimeout(() => {
+      callback(null, {
+        post: {
+          _id: "1",
+          title: "1st Post" + " ID" + context.route.params.id,
+          previewText: "preview text",
+          lastUpdate: new Date(),
+          author: "Narek",
+          content: "Descriptive Content",
+          thumbnail:
+            "https://i.pinimg.com/originals/33/09/ca/3309ca1330ca91b55b4feeda3f383031.jpg"
+        }
+      });
+    }, 100);
+  }
+};
+</script>
 
 <style scoped lang="scss">
 @mixin flexCenter($fl-dir: row) {

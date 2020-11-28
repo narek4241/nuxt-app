@@ -5,7 +5,7 @@
         class="post-thumbnail"
         :style="'background-image: url(' + thumbnail + ')'"
       >
-        {{ id }}
+        ID{{ id }}
       </div>
       <div class="post-content">
         <h1>{{ title }}</h1>

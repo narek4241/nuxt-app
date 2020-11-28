@@ -42,6 +42,11 @@ export default {
         ]
       });
     }, 1500);
+  },
+
+  created() {
+    this.$store.dispatch("setPosts", this.posts);
+    console.log(this.$store.getters.posts);
   }
 
   // data() {

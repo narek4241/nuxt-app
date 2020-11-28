@@ -1,7 +1,7 @@
 <template>
   <div class="admin-new-post-page">
     <section class="new-post-form">
-      <admin-post-form @submit="onSave"></admin-post-form>
+      <admin-post-form @submit="addPost"></admin-post-form>
     </section>
   </div>
 </template>
@@ -16,14 +16,10 @@ export default {
   layout: "admin",
 
   methods: {
-    onSave(addedPost) {
-      axios
-        .post("https://mynuxt-app.firebaseio.com/posts.json", {
-          ...addedPost,
-          lastUpdated: new Date()
-        })
-        .catch(err => console.error(err));
-      this.$router.push("/");
+    addPost(post) {
+      this.$store
+        .dispatch("addPost", post)
+        .then(res => this.$router.push("/admin"));
     }
   }
 };

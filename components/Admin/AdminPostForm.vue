@@ -64,7 +64,7 @@ export default {
 
     onSubmit() {
       this.$emit("submit", { ...this.editedPost });
-      this.resetForm();
+      // this.resetForm();
     }
   }
 };

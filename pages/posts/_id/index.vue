@@ -27,7 +27,7 @@ export default {
       .get(`https://mynuxt-app.firebaseio.com/posts/${context.params.id}.json`)
       .then(res => {
         if (!res.data) {
-          // #task #improve i.o this, lead to 'error' page
+          // #task #improve i.o this, e.g. lead to 'error' page
           return {
             post: { title: "That ID is not valid" }
           };

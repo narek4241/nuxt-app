@@ -39,12 +39,51 @@ const createStore = () => {
 
       setPosts(vuexContext, posts) {
         vuexContext.commit("setPosts", posts);
+      },
+
+      addPost(vuexContext, post) {
+        const addedPost = {
+          ...post,
+          lastUpdated: new Date()
+        };
+
+        return axios
+          .post("https://mynuxt-app.firebaseio.com/posts.json", addedPost)
+          .then(res => {
+            vuexContext.commit("addPost", { ...addedPost, id: res.data.name });
+          })
+          .catch(err => console.error(err));
+      },
+
+      updatePost(vuexContext, updatedPost) {
+        const editedPost = { ...updatedPost, lastUpdated: new Date() };
+
+        return axios
+          .put(
+            `https://mynuxt-app.firebaseio.com/posts/${updatedPost.id}.json`,
+            editedPost
+          )
+          .then(res => {
+            vuexContext.commit("updatePost", editedPost);
+          })
+          .catch(err => console.log(err));
       }
     },
 
     mutations: {
       setPosts(state, posts) {
         state.posts = posts;
+      },
+
+      addPost(state, post) {
+        state.posts.push(post);
+      },
+
+      updatePost(state, updatedPost) {
+        const postIndex = state.posts.findIndex(
+          post => post.id === updatedPost.id
+        );
+        state.posts[postIndex] = updatedPost;
       }
     }
   });

@@ -1,7 +1,10 @@
 <template>
   <div class="admin-post-page">
     <section class="update-form">
-      <admin-post-form @submit="onUpdate" :post="loadedPost"></admin-post-form>
+      <admin-post-form
+        @submit="updatePost"
+        :post="loadedPost"
+      ></admin-post-form>
     </section>
   </div>
 </template>
@@ -15,9 +18,34 @@ export default {
 
   layout: "admin",
 
+  asyncData(context) {
+    return axios
+      .get(
+        `https://mynuxt-app.firebaseio.com/posts/${context.params.postId}.json`
+      )
+      .then(res => {
+        if (!res.data) {
+          // #duplicate-task #improve  i.o this, e.g. lead to 'error' page
+          return {
+            loadedPost: { title: "That ID is not valid" }
+          };
+        }
+
+        return {
+          loadedPost: { ...res.data, id: context.params.id }
+        };
+      })
+      .catch(err => console.error(err));
+  },
+
   methods: {
-    onUpdate() {
-      // axios.post("https://mynuxt-app.firebaseio.com/posts.json");
+    updatePost(updatedPost) {
+      this.$store
+        .dispatch("updatePost", {
+          ...updatedPost,
+          id: this.$route.params.postId
+        })
+        .then(() => this.$router.push("/admin"));
     }
   }
 };

@@ -22,13 +22,12 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   asyncData(context) {
-    return axios
-      .get(`${process.env.baseUrl}/posts/${context.params.id}.json`)
-      .then(res => {
-        if (!res.data) {
+    return context.app.$axios
+      .$get(`/posts/${context.params.id}.json`)
+      .then(data => {
+        if (!data) {
           // #task #improve i.o this, e.g. lead to 'error' page
           return {
             post: { title: "That ID is not valid" }
@@ -37,7 +36,7 @@ export default {
 
         return {
           // #note 'post' is being merged into component
-          post: { ...res.data, id: context.params.id }
+          post: { ...data, id: context.params.id }
         };
       })
       .catch(err => console.error(err));

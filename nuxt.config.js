@@ -42,7 +42,10 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [],
+  modules: ["@nuxtjs/axios"],
+  axios: {
+    baseURL: process.env.BASE_URL || "https://mynuxt-app.firebaseio.com"
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
@@ -50,7 +53,8 @@ export default {
   // dev: boolean //rm
 
   env: {
-    baseUrl: process.env.BASE_URL || "https://mynuxt-app.firebaseio.com"
+    baseUrl: process.env.BASE_URL || "https://mynuxt-app.firebaseio.com",
+    credentials: false
   },
 
   router: {

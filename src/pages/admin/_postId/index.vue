@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import AdminPostForm from "@/components/Admin/AdminPostForm";
 
 export default {
@@ -19,10 +18,10 @@ export default {
   layout: "admin",
 
   asyncData(context) {
-    return axios
-      .get(`${process.env.baseUrl}/posts/${context.params.postId}.json`)
-      .then(res => {
-        if (!res.data) {
+    return context.app.$axios
+      .$get(`/posts/${context.params.postId}.json`)
+      .then(data => {
+        if (!data) {
           // #duplicate-task #improve  i.o this, e.g. lead to 'error' page
           return {
             loadedPost: { title: "That ID is not valid" }
@@ -30,7 +29,7 @@ export default {
         }
 
         return {
-          loadedPost: { ...res.data, id: context.params.id }
+          loadedPost: { ...data, id: context.params.id }
         };
       })
       .catch(err => console.error(err));

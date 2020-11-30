@@ -20,9 +20,7 @@ export default {
 
   asyncData(context) {
     return axios
-      .get(
-        `https://mynuxt-app.firebaseio.com/posts/${context.params.postId}.json`
-      )
+      .get(`${process.env.baseUrl}/posts/${context.params.postId}.json`)
       .then(res => {
         if (!res.data) {
           // #duplicate-task #improve  i.o this, e.g. lead to 'error' page

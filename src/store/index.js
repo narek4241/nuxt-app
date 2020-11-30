@@ -21,7 +21,7 @@ const createStore = () => {
         // }
 
         return axios
-          .get("https://mynuxt-app.firebaseio.com/posts.json")
+          .get(`${process.env.baseUrl}/posts.json`)
           .then(res => {
             const postsArr = [];
 
@@ -48,7 +48,7 @@ const createStore = () => {
         };
 
         return axios
-          .post("https://mynuxt-app.firebaseio.com/posts.json", addedPost)
+          .post(`${process.env.baseUrl}/posts.json`, addedPost)
           .then(res => {
             vuexContext.commit("addPost", { ...addedPost, id: res.data.name });
           })
@@ -60,7 +60,7 @@ const createStore = () => {
 
         return axios
           .put(
-            `https://mynuxt-app.firebaseio.com/posts/${updatedPost.id}.json`,
+            `${process.env.baseUrl}/posts/${updatedPost.id}.json`,
             editedPost
           )
           .then(res => {

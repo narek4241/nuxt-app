@@ -3,7 +3,9 @@
     <section class="post">
       <h1 class="post-title">{{ post.title }}</h1>
       <div class="post-details">
-        <div class="post-detail">{{ post.lastUpdate }}</div>
+        <div class="post-detail">
+          Last updated on {{ post.lastUpdated | date }}
+        </div>
         <div class="post-detail">{{ post.author }}</div>
       </div>
       <p class="post-content">
@@ -24,7 +26,7 @@ import axios from "axios";
 export default {
   asyncData(context) {
     return axios
-      .get(`https://mynuxt-app.firebaseio.com/posts/${context.params.id}.json`)
+      .get(`${process.env.baseUrl}/posts/${context.params.id}.json`)
       .then(res => {
         if (!res.data) {
           // #task #improve i.o this, e.g. lead to 'error' page

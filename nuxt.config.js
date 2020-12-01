@@ -44,7 +44,8 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: ["@nuxtjs/axios"],
   axios: {
-    baseURL: process.env.BASE_URL || "https://mynuxt-app.firebaseio.com"
+    baseURL: process.env.BASE_URL || "https://mynuxt-app.firebaseio.com",
+    credentials: false
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
@@ -54,18 +55,12 @@ export default {
 
   env: {
     baseUrl: process.env.BASE_URL || "https://mynuxt-app.firebaseio.com",
-    credentials: false
+    fbAPIKey: "AIzaSyDklMmUnlgH0oUhxaBMR71ZtYKrSFJFc-Q"
   },
 
   router: {
+    middleware: "log"
     // linkActiveClass: "active"
-    // OPT
-    // extendRoutes(routes, resolve) {
-    //   routes.push({
-    //     path: "*",
-    //     component: resolve(__dirname, "pages/index.vue")
-    //   });
-    // }
   },
 
   srcDir: "src/",

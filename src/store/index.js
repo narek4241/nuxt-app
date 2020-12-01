@@ -3,12 +3,17 @@ import Vuex from "vuex";
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      posts: []
+      posts: [],
+      token: null
     },
 
     getters: {
       posts(state) {
         return state.posts;
+      },
+
+      isAuthenticated(state) {
+        return state.token != null;
       }
     },
 
@@ -47,7 +52,7 @@ const createStore = () => {
         };
 
         return this.$axios
-          .$post(`/posts.json`, addedPost)
+          .$post(`/posts.json?auth=${vuexContext.state.token}`, addedPost)
           .then(data => {
             vuexContext.commit("addPost", { ...addedPost, id: data.name });
           })
@@ -58,9 +63,31 @@ const createStore = () => {
         const editedPost = { ...updatedPost, lastUpdated: new Date() };
 
         return this.$axios
-          .$put(`/posts/${updatedPost.id}.json`, editedPost)
+          .$put(
+            `/posts/${updatedPost.id}.json?auth=${vuexContext.state.token}`,
+            editedPost
+          )
           .then(() => {
             vuexContext.commit("updatePost", editedPost);
+          })
+          .catch(err => console.error(err));
+      },
+
+      authenticateUser(vuexContext, authData) {
+        // login URL
+        let authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.fbAPIKey}`;
+        if (!authData.isLogin) {
+          // sign up URL
+          authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.fbAPIKey}`;
+        }
+        return this.$axios
+          .$post(authUrl, {
+            email: authData.email,
+            password: authData.password,
+            returnSecureToken: true
+          })
+          .then(data => {
+            vuexContext.commit("setToken", data.idToken);
           })
           .catch(err => console.log(err));
       }
@@ -80,6 +107,10 @@ const createStore = () => {
           post => post.id === updatedPost.id
         );
         state.posts[postIndex] = updatedPost;
+      },
+
+      setToken(state, idToken) {
+        state.token = idToken;
       }
     }
   });

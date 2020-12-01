@@ -14,6 +14,8 @@ export default {
 
   layout: "admin",
 
+  middleware: "auth",
+
   methods: {
     addPost(post) {
       this.$store

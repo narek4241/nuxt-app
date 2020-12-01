@@ -16,6 +16,8 @@
 export default {
   layout: "admin",
 
+  middleware: "auth",
+
   computed: {
     posts() {
       return this.$store.getters.posts;

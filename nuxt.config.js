@@ -20,12 +20,6 @@ export default {
 
   loading: { color: "#fa923f", height: "4px", duration: 5000 },
 
-  // #note works in mode of 'spa' not 'universal'
-  // loadingIndicator: {
-  //   name: "circle",
-  //   color: "#fa923f"
-  // },
-
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: ["~assets/styles/main.css"],
 
@@ -59,7 +53,6 @@ export default {
   },
 
   router: {
-    middleware: "log"
     // linkActiveClass: "active"
   },
 

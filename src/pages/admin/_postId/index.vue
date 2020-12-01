@@ -17,7 +17,7 @@ export default {
 
   layout: "admin",
 
-  middleware: "auth",
+  middleware: ["check-auth", "auth"],
 
   asyncData(context) {
     return context.app.$axios

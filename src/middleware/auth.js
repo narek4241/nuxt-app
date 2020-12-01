@@ -11,6 +11,7 @@
 // export default auth;
 
 const redirectToAuth = ({ store, redirect }) => {
+  console.log("[MIDDLEWARE] [AUTH]");
   if (!store.getters.isAuthenticated) {
     redirect("/admin/auth");
   }

@@ -5,8 +5,8 @@
     </section>
     <section class="existing-posts">
       <h1>Existing Posts</h1>
-      <!-- <PostList :isAdmin="isAdmin" />  -->
-      <!-- #syntax isAdmin - returns true -->
+      <nuxt-link to="/">Home</nuxt-link>
+      <!-- #syntax [isAdmin] -> returns true -->
       <post-list isAdmin :posts="posts"></post-list>
     </section>
   </div>
@@ -16,7 +16,7 @@
 export default {
   layout: "admin",
 
-  middleware: "auth",
+  middleware: ["check-auth", "auth"],
 
   computed: {
     posts() {

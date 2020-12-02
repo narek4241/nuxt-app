@@ -24,6 +24,12 @@
 <script>
 export default {
   asyncData(context) {
+    // #note #[npm run generate] completely opt (for static generation)
+    // if (context.payload) {
+    //   return {
+    //     loadedPost: context.payload.postData
+    //   };
+    // }
     return context.app.$axios
       .$get(`/posts/${context.params.id}.json`)
       .then(data => {

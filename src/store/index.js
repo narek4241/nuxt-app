@@ -141,6 +141,9 @@ const createStore = () => {
             .split(";")
             .find(c => c.trim().startsWith("expirationDate="))
             .split("=")[1];
+
+          // #note #[npm run generate] completely opt (for static generation)
+          // #avoid localStorage is not defined by replacing else -> else if(process.client)
         } else {
           token = localStorage.getItem("token");
           expirationDate = localStorage.getItem("tokenExpiration");

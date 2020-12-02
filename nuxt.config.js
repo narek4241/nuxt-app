@@ -1,5 +1,6 @@
 // const pkg = require("./package"); // #note my opt
 const bodyParser = require("body-parser");
+// const axios = require("axios"); // #note #[npm run generate] completely opt (for static generation)
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -68,4 +69,22 @@ export default {
 
   // serverMiddleware: ["~/api"]
   serverMiddleware: [bodyParser.json(), "~/api"]
+
+  // #note #[npm run generate] completely opt (for static generation)
+  // generate: {
+  //   routes: function() {
+  //     return axios
+  //       .get("https://mynuxt-app.firebaseio.com/posts.json")
+  //       .then(res => {
+  //         const routes = [];
+  //         for (const key in res.data) {
+  //           routes.push({
+  //             route: `/posts/${key}`,
+  //             payload: { postData: res.data[key] }
+  //           });
+  //         }
+  //         return routes;
+  //       });
+  //   }
+  // }
 };

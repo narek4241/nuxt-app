@@ -1,3 +1,6 @@
+// const pkg = require("./package"); // #note my opt
+const bodyParser = require("body-parser");
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
 
@@ -61,5 +64,8 @@ export default {
   transition: {
     name: "fade",
     mode: "out-in"
-  }
+  },
+
+  // serverMiddleware: ["~/api"]
+  serverMiddleware: [bodyParser.json(), "~/api"]
 };

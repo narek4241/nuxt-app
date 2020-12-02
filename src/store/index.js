@@ -76,6 +76,7 @@ const createStore = () => {
           // register URL
           authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.fbAPIKey}`;
         }
+        // #task check use case of 'this' i.o 'vuexContext'
         return this.$axios
           .$post(authUrl, {
             email: authData.email,
@@ -95,6 +96,11 @@ const createStore = () => {
               "expirationDate",
               new Date().getTime() + +data.expiresIn * 1000
             );
+
+            // #note runs on our own 'server' !test?rm
+            // return this.$axios.$post("http://localhost:3000/api/track-data", {
+            //   data: "Authenticated"
+            // });
           })
           .catch(err => console.error(err));
       },

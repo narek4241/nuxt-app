@@ -1,11 +1,15 @@
 <template>
   <div class="admin-page">
     <section class="new-posts">
-      <app-button @click="linkToNewPost">Create Post</app-button>
+      <app-button @click="this.$router.push('/')">Home</app-button>
+      <app-button @click="this.$router.push('/admin/new-post')"
+        >Create Post</app-button
+      >
+      <app-button @click="logout">Logout</app-button>
     </section>
     <section class="existing-posts">
       <h1>Existing Posts</h1>
-      <nuxt-link to="/">Home</nuxt-link>
+
       <!-- #syntax [isAdmin] -> returns true -->
       <post-list isAdmin :posts="posts"></post-list>
     </section>
@@ -31,26 +35,24 @@ export default {
   },
 
   methods: {
-    linkToNewPost() {
-      // #task #findOut '$router' and not '$route' (mini)
-      this.$router.push("/admin/new-post");
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/admin/auth");
     }
   }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .admin-page {
   padding: 20px;
-}
-
-.new-post {
-  text-align: center;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 10px;
-}
-
-.existing-posts h1 {
-  text-align: center;
+  .new-posts {
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+  }
+  .existing-posts h1 {
+    text-align: center;
+  }
 }
 </style>
